@@ -1,5 +1,17 @@
 const contacts = require("./contacts");
 
+const { Command } = require('commander');
+const program = new Command();
+program
+  .option('-a, --action <type>', 'choose action')
+  .option('-i, --id <type>', 'user id')
+  .option('-n, --name <type>', 'user name')
+  .option('-e, --email <type>', 'user email')
+  .option('-p, --phone <type>', 'user phone');
+
+program.parse(process.argv);
+
+const argv = program.opts();
 
 async function invokeAction({ action, id, name, email, phone }) {
   switch ( action ) {
@@ -25,31 +37,13 @@ async function invokeAction({ action, id, name, email, phone }) {
   }
 }
 
+invokeAction(argv);
 
 
 // invokeAction({ action: "list" });
 // invokeAction({ action: "get", id: "05olLMgyVQdWRwgKfg5J6"});
 // invokeAction({ action: "add", name: "Mr. Smith", email: "Smith&Co@marvel.net", phone: "(000) 000-000" });
 // invokeAction({ action: "add", name: "Mr. Smith", email: "Smith&Co@marvel.net", phone: "(111) 111-111" });
-
-invokeAction({ action: "remove", id: "1NDpqFufm-fagkal62mHy" });
-
+// invokeAction({ action: "remove", id: "1NDpqFufm-fagkal62mHy" });
 
 
-const { Command } = require("commander");
-const program = new Command();
-program
-  .option("-a, --action <type>", "choose action")
-  .option("-i, --id <type>", "user id")
-  .option("-n, --name <type>", "user name")
-  .option("-e, --email <type>", "user email")
-  .option("-p, --phone <type>", "user phone");
-
-program.parse(process.argv);
-
-const argv = program.opts();
-
-
-
-
-// invokeAction(argv);
